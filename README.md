@@ -12,3 +12,5 @@ Calculadora con funciones simples.
 # iniciar calculadora
 npm run start
 ```
+Integrantes
+Victoria Heredia
