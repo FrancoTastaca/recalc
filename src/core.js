@@ -10,6 +10,12 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b == 0) {
+        console.log('No se puede dividir por 0');
+    } else {
+        let result = a / b;
+        return result;
+    }
 }
 
 function pow(a, b) {
