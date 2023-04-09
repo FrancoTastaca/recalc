@@ -22,6 +22,8 @@ function divide(a, b) {
 }
 
 function pow(a, b) {
+    let result= Math.pow(a,b);
+    return result;
 }
 
 export default {
