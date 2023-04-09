@@ -13,16 +13,13 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (b == 0) {
-        console.log('No se puede dividir por 0');
-    } else {
-        let result = a / b;
-        return result;
-    }
+    let result = (b != 0) ? (a/b) : "ERROR, no se puede dividir por 0 "; //Otra forma mas 
+    // La logica de sintaxis es la siguiente: "condicion ? valorSiVerdadero : valorSiFalso;" 
+    return result;
 }
 
-function pow(a, b) {
-    let result= Math.pow(a,b);
+function pow(a) { 
+    let result= Math.pow(a,2);
     return result;
 }
 
