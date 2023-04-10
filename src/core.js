@@ -14,7 +14,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    let result = (b != 0) ? (a/b) : "ERROR, no se puede dividir por 0 "; //Otra forma mas 
+    let result = (b != 0) ? (a/b) : "¡ERROR! No se puede dividir por 0 "; //Otra forma mas 
     // La logica de sintaxis es la siguiente: "condicion ? valorSiVerdadero : valorSiFalso;" 
     return result;
 }
