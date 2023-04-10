@@ -10,6 +10,7 @@ const AVAILABLE_FNS = [...Object.keys(core), 'exit'].join(', ')
 
 async function loop() {
     const fnName = await readline.question(`Ingrese función (${AVAILABLE_FNS}): `)
+    const fn=core[fnName];
 
     if (fnName === "exit") {
         console.log("👋👋👋");
