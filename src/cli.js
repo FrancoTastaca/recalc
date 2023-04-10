@@ -25,25 +25,36 @@ async function loop() {
 
     else if (fnName == "pow"){
             const powNum = await readline.question("Ingrese el número a elevar al cuadrado: ");
-             //Se trata el bug de solicitar mas parametros de los necesarios para el pow cuadrado
-            console.log(`El resultado del cuadrado es: ${core.pow(Number(powNum))}`);  
+            if (! isNaN(powNum)){
+                //Se trata el bug de solicitar mas parametros de los necesarios para el pow cuadrado
+                console.log(`El resultado del cuadrado es: ${core.pow(Number(powNum))}`);
+            } else {
+                console.log('Debe ingresar un número');
+            }      
         }
     else {
         const firstNum = await readline.question("Ingrese el primer número: ")
-        const secondNum = await readline.question("Ingrese el segundo número: ")
-        switch(fnName) {
-            case "add":
-                console.log(`El resultado de la suma es: ${core.add(Number(firstNum), Number(secondNum))}`);
-                break;
-            case "sub":
-                console.log(`El resultado de la resta es: ${core.sub(Number(firstNum), Number(secondNum))}`);
-                break;
-            case "mul":
-                console.log(`El resultado de la multiplicacion es: ${core.mul(Number(firstNum), Number(secondNum))}`);
-                break;    
-            case "div":
-            console.log(`El resultado de la division es: ${core.div(Number(firstNum), Number(secondNum))}`);
-
+        if (! isNaN(firstNum)){
+            const secondNum = await readline.question("Ingrese el segundo número: ")
+            if (! isNaN(secondNum)){
+                switch(fnName) {
+                    case "add":
+                        console.log(`El resultado de la suma es: ${core.add(Number(firstNum), Number(secondNum))}`);
+                        break;
+                    case "sub":
+                        console.log(`El resultado de la resta es: ${core.sub(Number(firstNum), Number(secondNum))}`);
+                        break;
+                    case "mul":
+                        console.log(`El resultado de la multiplicacion es: ${core.mul(Number(firstNum), Number(secondNum))}`);
+                        break;    
+                    case "div":
+                    console.log(`El resultado de la division es: ${core.div(Number(firstNum), Number(secondNum))}`);
+                }
+            } else {
+                console.log('Debe ingresar un número');
+            }
+        } else {
+            console.log('Debe ingresar un número');
         }
     }
     loop();
