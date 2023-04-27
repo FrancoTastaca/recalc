@@ -1,17 +1,27 @@
 function add(a, b) {
+    let result = a + b;
+    return result;
 }
 
 function subtract(a, b) {
-    return a - b;
+    let result = a - b;
+    return result;
 }
 
 function multiply(a, b) {
+    let result = a * b;
+    return result;
 }
 
 function divide(a, b) {
+    let result = (b != 0) ? (a/b) : "¡ERROR! No se puede dividir por 0 "; //Otra forma mas 
+    // La logica de sintaxis es la siguiente: "condicion ? valorSiVerdadero : valorSiFalso;" 
+    return result;
 }
 
-function pow(a, b) {
+function pow(a) { 
+    let result= Math.pow(a,2);
+    return result;
 }
 
 export default {
