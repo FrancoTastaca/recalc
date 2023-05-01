@@ -19,3 +19,14 @@ describe('Add', () => {
         expect(core.add(-36, 55)).toBe(19); 
     })
 })
+
+describe('Mul', () => {
+    test('debería multiplicar un número positivo y un número negativo correctamente', () => {
+        expect(core.mul(2, -2)).toBe(-4);
+        expect(core.mul(-2,2)).toBe(-4);
+      });
+    
+      test('debería multiplicar dos números negativos correctamente', () => {
+        expect(core.mul(-2, -2)).toBe(4);
+      });
+})
