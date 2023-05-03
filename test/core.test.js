@@ -37,3 +37,13 @@ describe('Multiply', () => {
   })
 })
 
+describe('Mul', () => {
+    test('Debería multiplicar un número positivo y un número negativo correctamente', () => {
+        expect(core.mul(2, -2)).toBe(-4);
+        expect(core.mul(-2, 2)).toBe(-4);
+      })
+    
+      test('Debería multiplicar dos números negativos correctamente', () => {
+        expect(core.mul(-2, -2)).toBe(4);
+      })
+})
