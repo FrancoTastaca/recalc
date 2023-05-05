@@ -65,6 +65,15 @@ describe('Multiply', () => {
   })
 })
 
+describe('Sub-Opcional', () => {
+    test('Debería dar un número negativo una resta con el segundo parámetro mayor al primero', () => {
+        expect(core.sub(5, 30)).toBe(-25);
+        expect(core.sub(90, 200)).toBe(-110);
+        expect(core.sub(-43, -20)).toBe(-23);
+        expect(core.sub(-18, 5)).toBe(-23);
+    })
+})
+
 describe('Mul', () => {
     test('Debería multiplicar un número positivo y un número negativo correctamente', () => {
         expect(core.mul(2, -2)).toBe(-4);
