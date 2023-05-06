@@ -90,3 +90,10 @@ describe('Mul', () => {
         expect(core.mul(-2, -2)).toBe(4);
       })
 })
+
+describe('Pow-Opcional', () => {
+    test('Debería dar un número positivo toda potencia con base negativa ', () => {
+        expect(core.pow(-55)).toBe(3025);
+        expect(core.pow(-24)).toBe(576);
+      })
+})
