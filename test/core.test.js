@@ -48,6 +48,21 @@ describe('Divide', () => {
     })
 })
 
+describe('Pow', () => {
+    test('Debería 9² = 81', () => {
+        expect(core.pow(9)).toBe(81);
+        expect(core.mul(9, 9)).toBe(81); 
+    })
+
+    test('Debería dar cero toda potencia con base igual a 0', () => {
+        expect(core.pow(0)).toBe(0); 
+    })
+
+    test('Debería dar uno toda potencia con base igual a 1', () => {
+        expect(core.pow(1)).toBe(1); 
+    })
+})
+
 describe('Multiply', () => {
   test('Debería multiplicar dos números positivos correctamente', () => {
     expect(core.mul(2, 2)).toBe(4);
@@ -65,6 +80,15 @@ describe('Multiply', () => {
   })
 })
 
+describe('Sub-Opcional', () => {
+    test('Debería dar un número negativo una resta con el segundo parámetro mayor al primero', () => {
+        expect(core.sub(5, 30)).toBe(-25);
+        expect(core.sub(90, 200)).toBe(-110);
+        expect(core.sub(-43, -20)).toBe(-23);
+        expect(core.sub(-18, 5)).toBe(-23);
+    })
+})
+
 describe('Mul', () => {
     test('Debería multiplicar un número positivo y un número negativo correctamente', () => {
         expect(core.mul(2, -2)).toBe(-4);
@@ -76,4 +100,9 @@ describe('Mul', () => {
       })
 })
 
-
+describe('Pow-Opcional', () => {
+    test('Debería dar un número positivo toda potencia con base negativa ', () => {
+        expect(core.pow(-55)).toBe(3025);
+        expect(core.pow(-24)).toBe(576);
+      })
+})
