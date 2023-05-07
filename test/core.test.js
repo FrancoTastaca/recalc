@@ -75,3 +75,5 @@ describe('Mul', () => {
         expect(core.mul(-2, -2)).toBe(4);
       })
 })
+
+
