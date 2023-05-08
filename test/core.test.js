@@ -1,4 +1,5 @@
 import core from '../src/core.js'
+import { validacionParametrosNum } from '../src/controllers.js'
 
 describe('Subtract', () => {
     test('Debería 2 - 2 = 0', () => {
@@ -17,6 +18,25 @@ describe('Add', () => {
 
     test('Debería -36 + 55 = 19', () => {
         expect(core.add(-36, 55)).toBe(19); 
+    })
+    
+    test('Debería sumar correctamente si ambos parámetros son números', () => {
+        const req = {
+            params: { a: '2', b: '2' } //Simulamos una peticion de HTTP de los parametros a y b 
+        };
+        /*jest.fn() es una función proporcionada por Jest que se utiliza para crear una "función ficticia" que se puede usar como sustituto de una función real en las pruebas. En este caso, se crea una función "falsa next() que se pasará como tercer parámetro a validacionParametrosNum. Al llamar a la función next dentro de validacionParametrosNum, se puede comprobar que se ha llamado correctamente con expect(next).toHaveBeenCalled(). */
+        const next = jest.fn(); 
+        validacionParametrosNum(req, null, next);
+        const result = core.add(req.validParams.a, req.validParams.b);
+        expect(result).toBe(4); 
+        expect(next).toHaveBeenCalled();
+    })
+    test('Debería lanzar un error si alguno de los parámetros no es numérico', () => {
+        const req = {
+            params: { a: '1', b: 'no es un número' }
+        };
+        /* expect(() => ...) es porque estamos probando una función que arroja un error en lugar de devolver un valor esperado. En este caso particular, envolvemos a validacionParametrosNum en una función de flecha y luego llamamos a toThrow y le pasamos el mensaje de error que esperamos que se arroje si la función falla. Si la función arroja el error esperado, el test pasará. Si la función no arroja un error, el test fallará. */
+        expect(() => validacionParametrosNum(req, null, () => {})).toThrow('Uno de los parámetros no es un número. Por favor, asegurese de que ambos parámetros sean válidos'); 
     })
 })
 
@@ -106,9 +126,15 @@ describe('Pow-Opcional', () => {
         expect(core.pow(-24)).toBe(576);
       })
 })
-
 describe('Div-Opcional', () => {
     test('Debería devolver un error al dividir por 0', () => {
         expect(core.div(45,0)).toMatch('¡ERROR! No se puede dividir por 0 ');
     })
+})
+
+describe('Pow-Opcional', () => {
+    test('Debería dar un número positivo toda potencia con base negativa ', () => {
+        expect(core.pow(-55)).toBe(3025);
+        expect(core.pow(-24)).toBe(576);
+      })
 })
