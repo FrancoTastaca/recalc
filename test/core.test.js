@@ -126,6 +126,12 @@ describe('Pow-Opcional', () => {
         expect(core.pow(-24)).toBe(576);
       })
 })
+describe('Div-Opcional', () => {
+    test('Debería devolver un error al dividir por 0', () => {
+        expect(core.div(45,0)).toMatch('¡ERROR! No se puede dividir por 0 ');
+    })
+})
+
 describe('Pow-Opcional', () => {
     test('Debería dar un número positivo toda potencia con base negativa ', () => {
         expect(core.pow(-55)).toBe(3025);
