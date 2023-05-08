@@ -132,8 +132,3 @@ describe('Pow-Opcional', () => {
         expect(core.pow(-24)).toBe(576);
       })
 })
-/*
-'Uno de los parámetros no es un número. Por favor, asegurese de que ambos parámetros sean válidos'Validación parámetros - opcional                                                                                                                            
-× Debería lanzar un error si alguno de los parametros no es numerico (23 ms)                                                                              
-× Debería lanzar un error si falta alguno de los parametros (7 ms)                                                                                        
-× Debería no lanzar error si ambos parametros son numericos (2 ms)               */
