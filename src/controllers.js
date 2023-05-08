@@ -66,4 +66,5 @@ router.get("/mul/:a/:b", validacionParametrosNum, async function (req, res) {
     }
 });
 
+export { validacionParametrosNum };
 export default router;
