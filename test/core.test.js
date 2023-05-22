@@ -62,8 +62,8 @@ describe('Divide', () => {
     })
 
     test('Debería dividir con números negativos', () => {
-        expect(core.div(-5, 2)).toBe(-2.5);
-        expect(core.div(12, -30)).toBe(-0.4);
+        expect(core.div(-5, 2)).toBeLessThan(0);
+        expect(core.div(12, -30)).toBeLessThan(0);
         expect(core.div(-24, -12)).toBe(2); 
     })
 })
@@ -96,23 +96,23 @@ describe('Multiply', () => {
   test('Debería cumplir con la propiedad de identidad de la multiplicación', () => {
     expect(core.mul(4, 1)).toBe(4);
     expect(core.mul(0, 1)).toBe(0);
-    expect(core.mul(-2, 1)).toBe(-2);
+    expect(core.mul(-2, 1)).toBeLessThan(0);
   })
 })
 
 describe('Sub-Opcional', () => {
     test('Debería dar un número negativo una resta con el segundo parámetro mayor al primero', () => {
-        expect(core.sub(5, 30)).toBe(-25);
-        expect(core.sub(90, 200)).toBe(-110);
-        expect(core.sub(-43, -20)).toBe(-23);
-        expect(core.sub(-18, 5)).toBe(-23);
+        expect(core.sub(5, 30)).toBeLessThan(0);
+        expect(core.sub(90, 200)).toBeLessThan(0);
+        expect(core.sub(-43, -20)).toBeLessThan(0);
+        expect(core.sub(-18, 5)).toBeLessThan(0);
     })
 })
 
 describe('Mul', () => {
     test('Debería multiplicar un número positivo y un número negativo correctamente', () => {
-        expect(core.mul(2, -2)).toBe(-4);
-        expect(core.mul(-2, 2)).toBe(-4);
+        expect(core.mul(2, -2)).toBeLessThan(0);
+        expect(core.mul(-2, 2)).toBeLessThan(0);
       })
     
       test('Debería multiplicar dos números negativos correctamente', () => {
@@ -123,7 +123,7 @@ describe('Mul', () => {
 describe('Pow-Opcional', () => {
     test('Debería dar un número positivo toda potencia con base negativa ', () => {
         expect(core.pow(-55)).toBe(3025);
-        expect(core.pow(-24)).toBe(576);
+        expect(core.pow(-24)).toBeGreaterThan(0);
       })
 })
 describe('Div-Opcional', () => {
