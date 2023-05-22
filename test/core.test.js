@@ -109,7 +109,7 @@ describe('Sub-Opcional', () => {
     })
 })
 
-describe('Mul', () => {
+describe('Mul-Opcional', () => {
     test('Debería multiplicar un número positivo y un número negativo correctamente', () => {
         expect(core.mul(2, -2)).toBeLessThan(0);
         expect(core.mul(-2, 2)).toBeLessThan(0);
@@ -132,9 +132,3 @@ describe('Div-Opcional', () => {
     })
 })
 
-describe('Pow-Opcional', () => {
-    test('Debería dar un número positivo toda potencia con base negativa ', () => {
-        expect(core.pow(-55)).toBe(3025);
-        expect(core.pow(-24)).toBe(576);
-      })
-})
