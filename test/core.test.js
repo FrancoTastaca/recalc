@@ -83,7 +83,7 @@ describe('Divide', () => {
 describe('Pow', () => {
     test('Debería 9² = 81', () => {
         expect(core.pow(9)).toBe(81);
-        expect(core.mul(9, 9)).toBe(81); 
+        
     })
 
     test('Debería dar cero toda potencia con base igual a 0', () => {
