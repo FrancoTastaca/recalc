@@ -35,10 +35,22 @@ describe('Add', () => {
         const req = {
             params: { a: '1', b: 'no es un número' }
         };
-        /* expect(() => ...) es porque estamos probando una función que arroja un error en lugar de devolver un valor esperado. En este caso particular, envolvemos a validacionParametrosNum en una función de flecha y luego llamamos a toThrow y le pasamos el mensaje de error que esperamos que se arroje si la función falla. Si la función arroja el error esperado, el test pasará. Si la función no arroja un error, el test fallará. */
-        expect(() => validacionParametrosNum(req, null, () => {})).toThrow('Uno de los parámetros no es un número. Por favor, asegurese de que ambos parámetros sean válidos'); 
-    })
+        const next = jest.fn();
+        const res = {
+          status: jest.fn().mockReturnThis(),
+          json: jest.fn(),
+        };
+      
+        validacionParametrosNum(req, res, next);
+      
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+          error:
+            'Uno de los parámetros no es un número. Por favor, asegúrese de que ambos parámetros sean válidos',
+        });
+      });  
 })
+
 
 describe('Divide', () => {
     test('Debería hacer una división exacta 21 / 3  = 7', () => {
