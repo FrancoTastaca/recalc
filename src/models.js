@@ -42,6 +42,7 @@ export async function createHistoryEntry({ firstArg, secondArg, operationName, r
 
     return History.create({
         firstArg,
+        secondArg,
         result,
         OperationId: operation.id
     })
@@ -53,3 +54,10 @@ export function createTables() {
         Operation.sync({ force: true })
     ]);
 }
+
+export async function getAllHistory() { 
+    return History.findAll({
+    include: [Operation]
+    });
+}
+  
