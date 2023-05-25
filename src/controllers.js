@@ -63,6 +63,7 @@ router.get("/mul/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     try {
         const result = core.mul(a, b);
+        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "MUL", result});
         res.send({ result });
     } catch (error) {
         res.status(400).send({ error:'Uno de los parámetros de la multiplicación no es un número. Por favor, asegurese de que ambos parámetros sean válidos' });
