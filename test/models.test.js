@@ -16,6 +16,7 @@ describe("History", () => {
             firstArg: 2,
             secondArg: 2,
             result: 0,
+            error: "",
             operationName: "SUB"
         })
 
@@ -27,6 +28,7 @@ describe("History", () => {
         expect(histories[0].firstArg).toEqual(2)
         expect(histories[0].secondArg).toEqual(2) //Se agrega el segundo parametro para comprobar que funcione el cambio reciente en la Creacion
         expect(histories[0].result).toEqual(0)
+        expect(histories[0].error).toEqual("") //Se agrega "error" para comprobar que el nuevo atributo se guarda correctamente
         expect(histories[0].Operation.name).toEqual("SUB")
     })
 })
@@ -38,12 +40,14 @@ describe('getAllHistory', () => {
         firstArg: 2,
         secondArg: 3,
         result: 5,
+        error: "",
         operationName: 'ADD'
       });
       await createHistoryEntry({
         firstArg: 2,
         secondArg: 2,
         result: 0,
+        error: "",
         operationName: "SUB"
     })
   
@@ -55,11 +59,13 @@ describe('getAllHistory', () => {
       expect(history[0].firstArg).toEqual(2)
       expect(history[0].secondArg).toEqual(3)
       expect(history[0].result).toEqual(5)
+      expect(history[0].error).toEqual("")
       expect(history[0].Operation.name).toEqual("ADD")
 
       expect(history[1].firstArg).toEqual(2)
       expect(history[1].secondArg).toEqual(2)
       expect(history[1].result).toEqual(0)
+      expect(history[1].error).toEqual("")
       expect(history[1].Operation.name).toEqual("SUB")
     });
   
