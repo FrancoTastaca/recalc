@@ -37,6 +37,7 @@ router.get("/add/:a/:b", validacionParametrosNum, async function (req, res) {
 router.get("/div/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     const result = core.div(a, b);
+    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result})
     res.send({ result });
    
 });
