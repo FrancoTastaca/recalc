@@ -3,7 +3,8 @@ const {
     createHistoryEntry,
     History,
     Operation,
-    getAllHistory
+    getAllHistory,
+    deleteAllHistory
 } = require('../src/models.js')
 
 beforeEach(async () => {
@@ -74,3 +75,11 @@ describe('getAllHistory', () => {
       expect(history).toEqual([])
     });
   });
+
+  describe("deleteAllHistory", () => {
+    test("Deberia poder eliminar todo el historial", async () => {
+        await deleteAllHistory();
+        const historial = await getAllHistory()
+        expect(historial).toEqual([])
+    })
+})

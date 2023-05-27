@@ -64,4 +64,11 @@ export async function getAllHistory() {
     include: [Operation]
     });
 }
+
+export async function deleteAllHistory() { 
+    const historial = await History.destroy({
+        where: {},
+        truncate: true
+    });
+}
   
