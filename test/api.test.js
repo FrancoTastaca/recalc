@@ -40,6 +40,7 @@ describe("API Mul", () => {
             .expect('Content-Type', "application/json; charset=utf-8")
             .then((res) => {
                 expect(Number.isInteger(res.body.result)).toBe(false) 
+
             })
     });
 });
