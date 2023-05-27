@@ -39,8 +39,6 @@ export async function createHistoryEntry({ firstArg, secondArg, operationName, r
             name: operationName
         }
     });
-    console.log('Operation validacion:', operation)
-    console.log('Operation Nombre:', operationName)
     return History.create({
         firstArg,
         secondArg,
