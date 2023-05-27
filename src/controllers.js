@@ -25,7 +25,6 @@ router.get("/sub/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     const result = core.sub(a, b);
     res.send({ result });
-    
 });
 
 router.get("/add/:a/:b", validacionParametrosNum, async function (req, res) {
@@ -55,6 +54,7 @@ router.get("/pow/:a", async function (req, res) {
 router.get("/mul/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     const result = core.mul(a, b);
+    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "MUL", result});
     res.send({ result });
 });
 

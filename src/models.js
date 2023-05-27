@@ -43,7 +43,6 @@ export async function createHistoryEntry({ firstArg, secondArg, operationName, r
             name: operationName
         }
     });
-
     return History.create({
         firstArg,
         secondArg,
