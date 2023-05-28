@@ -57,3 +57,15 @@ describe("API Div", () => {
     });
 });
 
+describe("API Pow", () => {
+    test("Si el parámetro no es un número, el thenpoint debe devolver un error junto a un status 400", async () => {
+        const app = await api.build();
+        return request(app).get('/api/v1/pow/t')
+            .expect(400)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.error).toEqual('El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido para la potencia cuadrada') 
+            })
+    });
+});
+

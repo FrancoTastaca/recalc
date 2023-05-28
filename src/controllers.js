@@ -48,9 +48,10 @@ router.get("/div/:a/:b", validacionParametrosNum, async function (req, res) {
 router.get("/pow/:a", async function (req, res) {
     const a = Number(req.params.a);
     if (isNaN(a)) {
-        res.status(400).send({ error:'El parámetro ingresado no es un número. Por favor, asegurese de que sea un parámetro válido para la potencia cuadrada'});
+        res.status(400).send({ error:'El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido para la potencia cuadrada'});
     } else {
         const result = core.pow(a);
+        await createHistoryEntry({ firstArg: a, operationName: "POW", result});
         res.send({ result });
     }
 });
