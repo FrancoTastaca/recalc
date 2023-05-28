@@ -36,9 +36,13 @@ router.get("/add/:a/:b", validacionParametrosNum, async function (req, res) {
 
 router.get("/div/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
-    const result = core.div(a, b);
-    res.send({ result });
-   
+    if ( b === 0) {
+        res.status(400).send({ error: '¡ERROR! No se puede dividir por 0 '})
+    }else{
+        const result = core.div(a, b);
+        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result})
+        res.send({ result });
+    }
 });
 
 router.get("/pow/:a", async function (req, res) {

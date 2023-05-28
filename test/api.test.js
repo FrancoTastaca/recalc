@@ -45,17 +45,17 @@ describe("API Mul", () => {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
+describe("API Div", () => {
+    test("Si el segundo parámetro es 0, el thenpoint debe devolver un mensaje de error junto a un status 200", async () => {
+        const app = await api.build();
+        return request(app).get('/api/v1/div/8/0')
+            .expect(400)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.error).toEqual('¡ERROR! No se puede dividir por 0 ') 
+            })
+    });
+});
 
 describe("API Pow", () => {
     test("Si el parámetro no es un número, el thenpoint debe devolver un error junto a un status 400", async () => {
@@ -68,3 +68,4 @@ describe("API Pow", () => {
             })
     });
 });
+
