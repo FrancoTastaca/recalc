@@ -30,6 +30,16 @@ describe("API add", () => {
                 expect(res.body.result).toBeLessThan(10); 
             })
     });
+    test("El resultado de la suma de 0.1 y 0.2 debe ser 0.3", async () => {
+        const app = await api.build();
+
+        return request(app).get('/api/v1/add/0.1/0.2')
+            .expect(200)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.result).toBeCloseTo(0.3); 
+            })
+    });
 });
 
 describe("API Mul", () => {
