@@ -79,3 +79,35 @@ describe("API Pow", () => {
     });
 });
 
+describe("API Sqrt", () => {
+    test("Debería calcular correctamente la raíz cuadrada de 16 y devolver un resultado de 4", async () => {
+        const app = await api.build();
+
+        return request(app).get('/api/v1/sqrt/16')
+            .expect(200)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.result).toEqual(4)
+            })
+    })
+    test("Debería devolver un código de estado 400 al calcular la raíz cuadrada de un número no válido", async () => {
+        const app = await api.build();
+    
+        return request(app).get('/api/v1/sqrt/abc')
+            .expect(400)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.error).toEqual('El parámetro ingresado no es un número válido o es negativo. Por favor, asegúrese de que sea un parámetro válido y no negativo para la raiz cuadrada')
+            })
+    })
+    test("Debería calcular correctamente la raíz cuadrada de 2 y devolver un resultado aproximadamente 1.414", async () => {
+        const app = await api.build();
+    
+        return request(app).get('/api/v1/sqrt/2')
+            .expect(200)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.result).toBeCloseTo(1.414);
+            })
+    })
+})

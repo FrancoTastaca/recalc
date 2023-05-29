@@ -63,5 +63,15 @@ router.get("/mul/:a/:b", validacionParametrosNum, async function (req, res) {
     res.send({ result });
 });
 
+router.get("/sqrt/:a", async function (req, res) {
+    const a = Number(req.params.a);
+    if (isNaN(a)|| a < 0) {
+        res.status(400).send({ error:'El parámetro ingresado no es un número válido o es negativo. Por favor, asegúrese de que sea un parámetro válido y no negativo para la raiz cuadrada'});
+    } else {
+        const result = core.sqrt(a);
+        await createHistoryEntry({ firstArg: a, operationName: "SQRT", result});
+        res.send({ result });
+    }
+});
 export { validacionParametrosNum };
 export default router;
