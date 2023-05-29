@@ -24,6 +24,7 @@ function validacionParametrosNum(req, res, next) {
 router.get("/sub/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     const result = core.sub(a, b);
+    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "SUB", result})
     res.send({ result });
 });
 
