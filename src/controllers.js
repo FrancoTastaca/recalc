@@ -24,14 +24,14 @@ function validacionParametrosNum(req, res, next) {
 router.get("/sub/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     const result = core.sub(a, b);
-    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "SUB", result})
+    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "SUB", result, error: "" })
     res.send({ result });
 });
 
 router.get("/add/:a/:b", validacionParametrosNum, async function (req, res) {
         const { a, b } = req.validParams;
         const result = core.add(a, b);
-        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "ADD", result})
+        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "ADD", result, error: "" })
         res.send({ result });
 });
 
@@ -41,7 +41,7 @@ router.get("/div/:a/:b", validacionParametrosNum, async function (req, res) {
         res.status(400).send({ error: '¡ERROR! No se puede dividir por 0 '})
     }else{
         const result = core.div(a, b);
-        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result})
+        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result, error: "" })
         res.send({ result });
     }
 });
@@ -52,7 +52,7 @@ router.get("/pow/:a", async function (req, res) {
         res.status(400).send({ error:'El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido para la potencia cuadrada'});
     } else {
         const result = core.pow(a);
-        await createHistoryEntry({ firstArg: a, operationName: "POW", result});
+        await createHistoryEntry({ firstArg: a, operationName: "POW", result, error: "" });
         res.send({ result });
     }
 });
@@ -60,7 +60,7 @@ router.get("/pow/:a", async function (req, res) {
 router.get("/mul/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     const result = core.mul(a, b);
-    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "MUL", result});
+    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "MUL", result, error: "" });
     res.send({ result });
 });
 
