@@ -90,7 +90,7 @@ describe("API Sqrt", () => {
                 expect(res.body.error).toEqual('El parámetro ingresado no es un número válido o es negativo. Por favor, asegúrese de que sea un parámetro válido y no negativo para la raiz cuadrada')
             })
     })
-    test("Debería calcular correctamente la raíz cuadrada de 2.25 y devolver un resultado de 1.5", async () => {
+    test("Debería calcular correctamente la raíz cuadrada de 2 y devolver un resultado aproximadamente 1.414", async () => {
         const app = await api.build();
     
         return request(app).get('/api/v1/sqrt/2')
