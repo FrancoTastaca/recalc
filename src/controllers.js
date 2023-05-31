@@ -8,27 +8,22 @@ const router = express.Router();
 function guardarValoresConError(req, error) {
 
     let operationName = ''
-    switch (req.route.path) {
-        //req.route.path contiene la ruta completa, incluyendo los parámetros /:a y /:b, por lo que es necesario usar este formato dentro de cada case
-      case '/sub/:a/:b':
-        operationName = 'SUB';
-        break
-      case '/add/:a/:b':
-        operationName = 'ADD';
-        break;
-      case '/div/:a/:b':
-        operationName = 'DIV';
-        break
-      case '/pow/:a':
-        operationName = 'POW';
-        break
-      case '/mul/:a/:b':
-        operationName = 'MUL';
-        break
- 
+    const routePath = req.route.path; 
+    //req.route.path contiene la ruta completa,
+    // Con el startWith podemos hacer foco en como inicia la ruta y nos desligamos de la dependencia de los valores de entrada, ya que sabemos que no son numeros
+    if (routePath.startsWith('/sub')) {
+      operationName = 'SUB'
+    } else if (routePath.startsWith('/add')) {
+      operationName = 'ADD'
+    } else if (routePath.startsWitsh('/div')) {
+      operationName = 'DIV'
+    } else if (routePath.startsWith('/pow')) {
+      operationName = 'POW'
+    } else if (routePath.startsWith('/mul')) {
+      operationName = 'MUL'
     }
-    createHistoryEntry({ firstArg: null, secondArg: null, operationName, result: null, error: error.message })
-}
+    createHistoryEntry({ firstArg: null, secondArg: null, operationName, error: error.message })
+  }
 function validacionParametrosNum(req, res, next) {
     try {
         const params = req.params;

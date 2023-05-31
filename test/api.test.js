@@ -67,6 +67,7 @@ describe("API Div", () => {
     });
 });
 
+//Existe un problema cuando busca la operacion de "POW" y no la encuentra, generando una exepcion, sin embargo se persiste correctamente cuando  
 describe("API Pow", () => {
     test("Si el parámetro no es un número, el thenpoint debe devolver un error junto a un status 400", async () => {
         const app = await api.build();
