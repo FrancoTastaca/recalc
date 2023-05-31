@@ -5,6 +5,30 @@ import { createHistoryEntry,getAllHistory,deleteAllHistory } from './models.js'
 
 const router = express.Router();
 
+function guardarValoresConError(req, error) {
+
+    let operationName = ''
+    switch (req.route.path) {
+        //req.route.path contiene la ruta completa, incluyendo los parámetros /:a y /:b, por lo que es necesario usar este formato dentro de cada case
+      case '/sub/:a/:b':
+        operationName = 'SUB';
+        break
+      case '/add/:a/:b':
+        operationName = 'ADD';
+        break;
+      case '/div/:a/:b':
+        operationName = 'DIV';
+        break
+      case '/pow/:a':
+        operationName = 'POW';
+        break
+      case '/mul/:a/:b':
+        operationName = 'MUL';
+        break
+ 
+    }
+    createHistoryEntry({ firstArg: null, secondArg: null, operationName, result: null, error: error.message })
+}
 function validacionParametrosNum(req, res, next) {
     try {
         const params = req.params;
@@ -16,10 +40,10 @@ function validacionParametrosNum(req, res, next) {
         req.validParams = { a, b };
         next();
     } catch (error) {
-        res.status(400).json({ error: error.message });
+      guardarValoresConError(req, error);
+      res.status(400).json({ error: error.message });
     }
 }
-
 
 router.get("/sub/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
