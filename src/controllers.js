@@ -101,7 +101,7 @@ router.get("/sqrt/:a", async function (req, res) {
 
 router.get("/ftb/:a", async function (req, res) {
     const a = Number(req.params.a);
-    if (isNaN(a) || Number.isInteger(a) == false) {
+    if (isNaN(a) || Number.isInteger(a) == true) {
         const errorMsg = 'El parámetro ingresado no es un número decimal. Por favor, asegúrese de que sea un parámetro válido.'
         await createHistoryEntry({ firstArg: null, operationName: "FTB", error: errorMsg});
         res.status(400).send({ error:errorMsg});
