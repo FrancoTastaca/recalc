@@ -62,7 +62,9 @@ router.get("/add/:a/:b", validacionParametrosNum, async function (req, res) {
 router.get("/div/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     if ( b === 0) {
-        res.status(400).send({ error: '¡ERROR! No se puede dividir por 0 '})
+        const errorMsg = '¡ERROR! No se puede dividir por 0 '
+        res.status(400).send({ error: errorMsg})
+        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", error: errorMsg})
     }else{
         const result = core.div(a, b);
         await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result,})
@@ -73,7 +75,10 @@ router.get("/div/:a/:b", validacionParametrosNum, async function (req, res) {
 router.get("/pow/:a", async function (req, res) {
     const a = Number(req.params.a);
     if (isNaN(a)) {
-        res.status(400).send({ error:'El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido para la potencia cuadrada'});
+        const errorMsg ='El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido para la potencia cuadrada'
+        res.status(400).send({ error: errorMsg})
+        await createHistoryEntry({ firstArg: null, operationName: "POW" , error:errorMsg })
+
     } else {
         const result = core.pow(a);
         await createHistoryEntry({ firstArg: a, operationName: "POW", result});
@@ -101,7 +106,11 @@ router.get("/history", async function (req, res) {
       result,
       error,
     }))
-    res.send({history:formattedHistory})
+    //Generamos una respuesta en HTML que muestra la cadena JSON preformateada dentro de la etiqueta <pre>. Al hacerlo, logramos una visualización más legible y de facil lectura
+    res.send(`
+     <pre>${JSON.stringify({ history: formattedHistory}, null, 2)}</pre> 
+    `)
+    
 });
 
 // Queda pendiente buscar la forma de que la ruta "/deleteHistory" utilice el método DELETE en lugar de GET, ya que es lo más apropiado para responder a una solicitud de eliminación del historial. Sin embargo, por el momento, se mantiene la ruta de esta forma para poder utilizar esta funcionalidad.
