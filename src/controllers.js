@@ -88,6 +88,17 @@ router.get("/mul/:a/:b", validacionParametrosNum, async function (req, res) {
     res.send({ result });
 });
 
+router.get("/sqrt/:a", async function (req, res) {
+    const a = Number(req.params.a);
+    if (isNaN(a)|| a < 0) {
+        res.status(400).send({ error:'El parámetro ingresado no es un número válido o es negativo. Por favor, asegúrese de que sea un parámetro válido y no negativo para la raiz cuadrada'});
+    } else {
+        const result = core.sqrt(a);
+        await createHistoryEntry({ firstArg: a, operationName: "SQRT", result});
+        res.send({ result });
+    }
+});
+
 router.get("/history", async function (req, res) {
     const history = await getAllHistory()
     // Mapeamos los datos para formatear y estructurar mejor la legibilidad de los datos

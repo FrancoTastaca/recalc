@@ -23,11 +23,16 @@ function pow(a) {
     let result= Math.pow(a,2);
     return result;
 }
+function sqrt(a) {
+    let result= Math.sqrt(a); 
+    return result;
+}
 
 export default {
     add: add,
     sub: subtract,
     mul: multiply,
     div: divide,
-    pow: pow
+    pow: pow,
+    sqrt:sqrt
 }
