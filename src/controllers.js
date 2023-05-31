@@ -15,10 +15,8 @@ function guardarValoresConError(req, error) {
       operationName = 'SUB'
     } else if (routePath.startsWith('/add')) {
       operationName = 'ADD'
-    } else if (routePath.startsWitsh('/div')) {
+    } else if (routePath.startsWith('/div')) {
       operationName = 'DIV'
-    } else if (routePath.startsWith('/pow')) {
-      operationName = 'POW'
     } else if (routePath.startsWith('/mul')) {
       operationName = 'MUL'
     }
@@ -91,7 +89,9 @@ router.get("/mul/:a/:b", validacionParametrosNum, async function (req, res) {
 router.get("/sqrt/:a", async function (req, res) {
     const a = Number(req.params.a);
     if (isNaN(a)|| a < 0) {
-        res.status(400).send({ error:'El parámetro ingresado no es un número válido o es negativo. Por favor, asegúrese de que sea un parámetro válido y no negativo para la raiz cuadrada'});
+        const errorMsg = 'El parámetro ingresado no es un número válido o es negativo. Por favor, asegúrese de que sea un parámetro válido y no negativo para la raiz cuadrada'
+        await createHistoryEntry({ firstArg: a, operationName: "SQRT", error: errorMsg});
+        res.status(400).send({ error:errorMsg});
     } else {
         const result = core.sqrt(a);
         await createHistoryEntry({ firstArg: a, operationName: "SQRT", result});
