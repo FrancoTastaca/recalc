@@ -1,7 +1,7 @@
 import express from 'express';
 import core from './core.js';
 
-import { createHistoryEntry } from './models.js'
+import { createHistoryEntry,getAllHistory,deleteAllHistory } from './models.js'
 
 const router = express.Router();
 
@@ -62,6 +62,30 @@ router.get("/mul/:a/:b", validacionParametrosNum, async function (req, res) {
     const result = core.mul(a, b);
     await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "MUL", result, error: "" });
     res.send({ result });
+});
+
+router.get("/history", async function (req, res) {
+    const history = await getAllHistory()
+    // Mapeamos los datos para formatear y estructurar mejor la legibilidad de los datos
+    const formattedHistory = history.map(({ id, Operation, firstArg, secondArg, result, error}) => ({
+      id,
+      operation: Operation.name,
+      arguments: {
+        first: firstArg,
+        second: secondArg
+      },
+      result,
+      error,
+    }))
+    res.send({history:formattedHistory})
+});
+
+// Queda pendiente buscar la forma de que la ruta "/deleteHistory" utilice el método DELETE en lugar de GET, ya que es lo más apropiado para responder a una solicitud de eliminación del historial. Sin embargo, por el momento, se mantiene la ruta de esta forma para poder utilizar esta funcionalidad.
+
+router.get("/deleteHistory",async function(req,res){
+    await deleteAllHistory()
+    res.status(200).send({ message: "Historial eliminado con exito" })
+     
 });
 
 export { validacionParametrosNum };
