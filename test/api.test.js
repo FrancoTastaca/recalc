@@ -67,7 +67,8 @@ describe("API Div", () => {
     });
 });
 
-/*Existe un problema cuando busca la operacion de "POW" y no la encuentra, generando una exepcion, sin embargo se persiste correctamente cuando ocurre un error(lo pude verificar por la ruta /history). Por el momento voy a comentar este test hasta encontrar una solucion
+/*
+//Existe un problema cuando busca la operacion de "POW" y no la encuentra, generando una exepcion, sin embargo se persiste correctamente cuando ocurre un error(lo pude verificar por la ruta /history). Por el momento voy a comentar este test hasta encontrar una solucion
 describe("API Pow", () => {
     test("Si el parámetro no es un número, el thenpoint debe devolver un error junto a un status 400", async () => {
         const app = await api.build();
@@ -79,7 +80,8 @@ describe("API Pow", () => {
             })
     });
 });
-Ocurre el mismo problema que con POW API... pero cuando estan ambas sin comentar - se traba primero en API POW y pasa este. Pero cuando comente el anterior y quedo este solo, dispara el mismo error de que no encuentra la operacion.
+
+//Ocurre el mismo problema que con POW API... pero cuando estan ambas sin comentar - se traba primero en API POW y pasa este. Pero cuando comente el anterior y quedo este solo, dispara el mismo error de que no encuentra la operacion.
 describe("API Sqrt", () => {
     test("Debería calcular correctamente la raíz cuadrada de 16 y devolver un resultado de 4", async () => {
         const app = await api.build();
@@ -112,4 +114,30 @@ describe("API Sqrt", () => {
             })
     })
 })
+
+//Ocurre el mismo problema que con POW API
+describe("API Ftb", () => {
+    test("Debería devolver un código de estado 400 al intentar convertir un número entero", async () => {
+       const app = await api.build();
+  
+       return request(app).get('/api/v1/ftb/20')
+           .expect(400)
+           .expect('Content-Type', "application/json; charset=utf-8")
+           .then((res) => {
+               expect(res.body.error).toEqual('El parámetro ingresado no es un número decimal. Por favor, asegúrese de que sea un parámetro válido.')
+           })
+   })
+
+   test("Debería responder con un 200 ok", async () => {
+       const app = await api.build();
+
+       return request(app).get('/api/v1/ftb/0.25')
+           .expect(200)
+           .expect('Content-Type', "application/json; charset=utf-8")
+           .then((res) => {
+               expect(res.body.result).toBeCloseTo(0.01);
+           })
+   })
+})
+
 */
