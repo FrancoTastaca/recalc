@@ -148,5 +148,20 @@ describe('Sqrt-Opcional', () => {
     test('Debería aproximar correctamente la raíz cuadrada de un número decimal', () => {
         expect(core.sqrt(2)).toBeCloseTo(1.414);
       });
-})  
+})
+
+describe('Ftb-Opcional', () => {
+    test('Debería devolver un error al intentar devolver un binario de un número entero', () => {
+        expect(core.ftb(45)).toMatch('¡ERROR! El parámetro ingresado no es decimal');
+        //Debería ser considerado un número entero 5.00
+        expect((core.ftb(5.00))).toMatch('¡ERROR! El parámetro ingresado no es decimal');
+    });
+    test('Debería convertir en binario un número decimal', () => {
+        expect(core.ftb(1.4)).toBeCloseTo(1.011001100110011);
+    });
+    test('Debería convertir en binario un número decimal negativo', () => {
+        expect(core.ftb(-0.16)).toBeCloseTo(-0.001010001111010111);
+    });
+})
+
 
