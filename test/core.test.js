@@ -141,4 +141,12 @@ describe('Div-Opcional', () => {
         expect(core.div(45,0)).toMatch('¡ERROR! No se puede dividir por 0 ');
     })
 })
+describe('Sqrt-Opcional', () => {
+    test('Debería calcular correctamente la raiz cuadrada de 16', () => {
+      expect(core.sqrt(16)).toBe(4);
+    });
+    test('Debería aproximar correctamente la raíz cuadrada de un número decimal', () => {
+        expect(core.sqrt(2)).toBeCloseTo(1.414);
+      });
+})  
 
