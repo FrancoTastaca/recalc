@@ -56,7 +56,7 @@ describe("API Mul", () => {
 });
 
 describe("API Div", () => {
-    test("Si el segundo parámetro es 0, el thenpoint debe devolver un mensaje de error junto a un status 200", async () => {
+    test("Si el segundo parámetro es 0, el thenpoint debe devolver un mensaje de error junto a un status 400", async () => {
         const app = await api.build();
         return request(app).get('/api/v1/div/8/0')
             .expect(400)
@@ -150,4 +150,26 @@ describe("API Dtb", () => {
         })
    })
 })
+
+describe("API historyById", () => {
+    test("Si el parámetro ingresado no es un valor numérico, el thenpoint debe devolver un mensaje de error junto a un status 400", async () => {
+        const app = await api.build();
+        return request(app).get('/api/v1/historyById/id')
+            .expect(400)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.error).toEqual('El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido.') 
+            })
+    });
+
+    test("Debería devolver un 200 ok", async () => {
+        const app = await api.build();
+        return request(app).get('/api/v1/historyById/2')
+            .expect(200)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.result).toBeDefined(); 
+            })
+    });
+});
 */
