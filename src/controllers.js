@@ -1,7 +1,7 @@
 import express from 'express';
 import core from './core.js';
 
-import { createHistoryEntry,getAllHistory,deleteAllHistory } from './models.js'
+import { createHistoryEntry,getAllHistory,deleteAllHistory,historyById } from './models.js'
 
 const router = express.Router();
 
@@ -112,6 +112,15 @@ router.get("/dtb/:a", async function (req, res) {
     }
 });
 
+router.get("/historyById/:id", async function (req, res) {
+    const id = Number(req.params.id);
+    if (isNaN(id)) {
+        res.status(400).send({error: 'El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido.'})
+    }else{
+        const result = await historyById(id);
+        res.send({ result });
+    }
+});
 
 router.get("/history", async function (req, res) {
     const history = await getAllHistory()

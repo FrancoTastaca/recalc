@@ -4,7 +4,8 @@ const {
     History,
     Operation,
     getAllHistory,
-    deleteAllHistory
+    deleteAllHistory,
+    historyById
 } = require('../src/models.js')
 
 beforeEach(async () => {
@@ -82,4 +83,34 @@ describe('getAllHistory', () => {
         const historial = await getAllHistory()
         expect(historial).toEqual([])
     })
+})
+
+describe("historyById", () => {
+  test("Deberia poder obtener un historial por id", async () => {
+      await createHistoryEntry({
+        firstArg: 2,
+        secondArg: 3,
+        result: 5,
+        error: "",
+        operationName: 'ADD'
+      });
+
+
+      await createHistoryEntry({
+        firstArg: 6,
+        secondArg: 3,
+        result: 3,
+        error: "",
+        operationName: 'SUB'
+      });
+
+      const historial = await historyById(1);
+      expect(historial).toBeDefined(); //Comprueba que se retornó el historial con id 1
+      expect(historial.id).toBe(1); //Comprueba que lo que se retornó tiene un id igual a 1
+      //Se comprueba que los datos del historial con id 1 sean correctos
+      expect(historial.firstArg).toEqual(2);
+      expect(historial.secondArg).toEqual(3);
+      expect(historial.result).toEqual(5);
+      expect(historial.Operation.name).toEqual('ADD');    
+  })
 })
