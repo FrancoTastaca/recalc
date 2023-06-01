@@ -99,15 +99,15 @@ router.get("/sqrt/:a", async function (req, res) {
     }
 });
 
-router.get("/ftb/:a", async function (req, res) {
+router.get("/dtb/:a", async function (req, res) {
     const a = Number(req.params.a);
-    if (isNaN(a) || Number.isInteger(a) == true) {
-        const errorMsg = 'El parámetro ingresado no es un número decimal. Por favor, asegúrese de que sea un parámetro válido.'
-        await createHistoryEntry({ firstArg: null, operationName: "FTB", error: errorMsg});
+    if (isNaN(a)) {
+        const errorMsg = 'El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido.'
+        await createHistoryEntry({ firstArg: null, operationName: "DTB", error: errorMsg});
         res.status(400).send({ error:errorMsg});
     } else {
-        const result = core.ftb(a);
-        await createHistoryEntry({ firstArg: a, operationName: "FTB", result});
+        const result = core.dtb(a);
+        await createHistoryEntry({ firstArg: a, operationName: "DTB", result});
         res.send({ result });
     }
 });

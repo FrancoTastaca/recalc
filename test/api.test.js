@@ -116,28 +116,38 @@ describe("API Sqrt", () => {
 })
 
 //Ocurre el mismo problema que con POW API
-describe("API Ftb", () => {
-    test("Debería devolver un código de estado 400 al intentar convertir un número entero", async () => {
-       const app = await api.build();
-  
-       return request(app).get('/api/v1/ftb/20')
-           .expect(400)
-           .expect('Content-Type', "application/json; charset=utf-8")
-           .then((res) => {
-               expect(res.body.error).toEqual('El parámetro ingresado no es un número decimal. Por favor, asegúrese de que sea un parámetro válido.')
-           })
-   })
-
+describe("API Dtb", () => {
    test("Debería responder con un 200 ok", async () => {
        const app = await api.build();
 
-       return request(app).get('/api/v1/ftb/0.25')
+       return request(app).get('/api/v1/dtb/0.25')
            .expect(200)
            .expect('Content-Type', "application/json; charset=utf-8")
            .then((res) => {
                expect(res.body.result).toBeCloseTo(0.01);
            })
    })
-})
 
+   test("Debería responder con un estatus 200 ok", async () => {
+    const app = await api.build();
+
+    return request(app).get('/api/v1/dtb/8')
+        .expect(200)
+        .expect('Content-Type', "application/json; charset=utf-8")
+        .then((res) => {
+            expect(res.body.result).toEqual(1000);
+        })
+    })
+    
+    test("Debería devolver un código de estado 400 al intentar convertir un parámetro que no es numérico", async () => {
+    const app = await api.build();
+  
+    return request(app).get('/api/v1/dtb/t')
+        .expect(400)
+        .expect('Content-Type', "application/json; charset=utf-8")
+        .then((res) => {
+            expect(res.body.error).toEqual('El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido.')
+        })
+   })
+})
 */

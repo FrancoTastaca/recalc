@@ -10,7 +10,7 @@ export async function seed() {
         { name: "DIV" },
         { name: "POW" },
         { name: "SQRT"},
-        { name: "FTB"}
+        { name: "DTB"}
     ])
 }
 
