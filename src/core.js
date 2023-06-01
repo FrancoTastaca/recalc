@@ -28,8 +28,8 @@ function sqrt(a) {
     return result;
 }
 
-function floatToBinary(a) {
-    let result = (Number.isInteger(a) == false) ? parseFloat(a.toString(2)) : "¡ERROR! El parámetro ingresado no es decimal";
+function decimalToBinary(a) {
+    let result = parseFloat((parseFloat(a, 10)).toString(2));
     return result;
 }
 
@@ -41,5 +41,5 @@ export default {
     div: divide,
     pow: pow,
     sqrt:sqrt,
-    ftb: floatToBinary
+    dtb: decimalToBinary
 }
