@@ -71,4 +71,12 @@ export async function deleteAllHistory() {
         truncate: true
     });
 }
-  
+
+export async function historyById(id) {
+    const historialID = await History.findOne({
+        where: { id: id },
+        include: [Operation]
+    });
+
+    return historialID
+}
