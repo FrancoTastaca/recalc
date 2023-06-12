@@ -69,8 +69,8 @@ router.get("/pow/:a", async function (req, res) {
     const a = Number(req.params.a);
     if (isNaN(a)) {
         const errorMsg ='El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido para la potencia cuadrada'
-        res.status(400).send({ error: errorMsg})
         await createHistoryEntry({ firstArg: null, operationName: "POW" , error:errorMsg })
+        res.status(400).send({ error: errorMsg})
 
     } else {
         const result = core.pow(a);
