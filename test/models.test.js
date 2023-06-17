@@ -79,6 +79,22 @@ describe('getAllHistory', () => {
 
   describe("deleteAllHistory", () => {
     test("Deberia poder eliminar todo el historial", async () => {
+      await createHistoryEntry({
+        firstArg: 4,
+        secondArg: 8,
+        result: 32,
+        error: "",
+        operationName: 'MUL'
+      });
+
+      await createHistoryEntry({
+        firstArg: 5,
+        secondArg: 2,
+        result: 3,
+        error: "",
+        operationName: 'SUB'
+      });
+
         await deleteAllHistory();
         const historial = await getAllHistory()
         expect(historial).toEqual([])
