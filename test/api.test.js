@@ -67,9 +67,7 @@ describe("API Div", () => {
     });
 });
 
-/*
-//Existe un problema cuando busca la operacion de "POW" y no la encuentra, generando una exepcion, sin embargo se persiste correctamente cuando ocurre un error(lo pude verificar por la ruta /history). Por el momento voy a comentar este test hasta encontrar una solucion
-describe("API Pow", () => {
+describe.skip("API Pow", () => {
     test("Si el parámetro no es un número, el thenpoint debe devolver un error junto a un status 400", async () => {
         const app = await api.build();
         return request(app).get('/api/v1/pow/t')
@@ -81,8 +79,7 @@ describe("API Pow", () => {
     });
 });
 
-//Ocurre el mismo problema que con POW API... pero cuando estan ambas sin comentar - se traba primero en API POW y pasa este. Pero cuando comente el anterior y quedo este solo, dispara el mismo error de que no encuentra la operacion.
-describe("API Sqrt", () => {
+describe.skip("API Sqrt", () => {
     test("Debería calcular correctamente la raíz cuadrada de 16 y devolver un resultado de 4", async () => {
         const app = await api.build();
 
@@ -115,8 +112,7 @@ describe("API Sqrt", () => {
     })
 })
 
-//Ocurre el mismo problema que con POW API
-describe("API Dtb", () => {
+describe.skip("API Dtb", () => {
    test("Debería responder con un 200 ok", async () => {
        const app = await api.build();
 
@@ -129,29 +125,29 @@ describe("API Dtb", () => {
    })
 
    test("Debería responder con un estatus 200 ok", async () => {
-    const app = await api.build();
+        const app = await api.build();
 
-    return request(app).get('/api/v1/dtb/8')
-        .expect(200)
-        .expect('Content-Type', "application/json; charset=utf-8")
-        .then((res) => {
-            expect(res.body.result).toEqual(1000);
-        })
+        return request(app).get('/api/v1/dtb/8')
+            .expect(200)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.result).toEqual(1000);
+            })
     })
     
     test("Debería devolver un código de estado 400 al intentar convertir un parámetro que no es numérico", async () => {
-    const app = await api.build();
-  
-    return request(app).get('/api/v1/dtb/t')
-        .expect(400)
-        .expect('Content-Type', "application/json; charset=utf-8")
-        .then((res) => {
-            expect(res.body.error).toEqual('El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido.')
-        })
+        const app = await api.build();
+    
+        return request(app).get('/api/v1/dtb/t')
+            .expect(400)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.error).toEqual('El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido.')
+            })
    })
 })
 
-describe("API historyById", () => {
+describe.skip("API historyById", () => {
     test("Si el parámetro ingresado no es un valor numérico, el thenpoint debe devolver un mensaje de error junto a un status 400", async () => {
         const app = await api.build();
         return request(app).get('/api/v1/historyById/id')
@@ -172,4 +168,3 @@ describe("API historyById", () => {
             })
     });
 });
-*/
