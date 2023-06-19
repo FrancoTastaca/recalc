@@ -76,11 +76,11 @@ async function calculatePow(firstArg) {
 async function calculateDiv(firstArg, secondArg) {
     if (parseInt(secondArg) === 0){
         return "¡Error! No se puede dividir por 0";
-    }else{
-        const resp = await fetch(`/api/v1/div/${firstArg}/${secondArg}`)
-        const { result } = await resp.json()
-        return result
     }
+    const resp = await fetch(`/api/v1/div/${firstArg}/${secondArg}`)
+    const { result } = await resp.json()
+    return result
+    
 } 
 function renderDisplay(chars) {
     currentDisplay = chars;
