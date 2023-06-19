@@ -7,8 +7,6 @@ let currentDisplay = "";
 let operation = null;
 let reset = false;
 
-let unused;
-
 $buttons.addEventListener('click', async (e) => {
     const nextAction = e.target.name
 
@@ -88,5 +86,3 @@ function renderDisplay(chars) {
     currentDisplay = chars;
     $display.value = chars;
 }
-
-function rerender() { }
