@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes } from 'sequelize';
 
 const inTest = process.env.NODE_ENV === 'test';
-
+console.log(inTest)
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     logging: !inTest,

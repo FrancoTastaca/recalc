@@ -79,6 +79,7 @@ describe.skip("API Pow", () => {
     });
 });
 
+//Ocurre el mismo problema que con POW API... pero cuando estan ambas sin comentar - se traba primero en API POW y pasa este. Pero cuando comente el anterior y quedo este solo, dispara el mismo error de que no encuentra la operacion.
 describe.skip("API Sqrt", () => {
     test("Debería calcular correctamente la raíz cuadrada de 16 y devolver un resultado de 4", async () => {
         const app = await api.build();
@@ -112,6 +113,7 @@ describe.skip("API Sqrt", () => {
     })
 })
 
+//Ocurre el mismo problema que con POW API
 describe.skip("API Dtb", () => {
    test("Debería responder con un 200 ok", async () => {
        const app = await api.build();
@@ -167,4 +169,6 @@ describe.skip("API historyById", () => {
                 expect(res.body.result).toBeDefined(); 
             })
     });
+
 });
+
