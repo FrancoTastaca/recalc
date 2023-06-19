@@ -60,5 +60,3 @@ function renderDisplay(chars) {
     currentDisplay = chars;
     $display.value = chars;
 }
-
-function rerender() { }
