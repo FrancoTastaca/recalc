@@ -168,6 +168,49 @@ test.describe('test', () => {
     await page.getByRole('button', { name: '=' }).click();
     await expect(page.getByTestId('display')).toHaveValue(/Error:n° muy grande, pruebe con otro/)
   });
+  test('Deberia poder realizar una división', async ({ page }) => {
+    await page.goto('./');
+
+    await page.getByRole('button', { name: '1' }).click()
+    await page.getByRole('button', { name: '2', exact: true }).click()
+    await page.getByRole('button', { name: '/' }).click()
+    await page.getByRole('button', { name: '6' }).click()
+    await page.getByRole('button', { name: '0' }).click()
+
+    const [response] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes('/api/v1/div/')),
+      page.getByRole('button', { name: '=' }).click()
+    ]);
+
+    const { result } = await response.json();
+    expect(result).toBe(0.2);
+
+    await expect(page.getByTestId('display')).toHaveValue(/0.2/)
+
+    const operation = await Operation.findOne({
+      where: {
+        name: "DIV"
+      }
+    });
+
+    const historyEntry = await History.findOne({
+      where: { OperationId: operation.id }
+    })
+
+    expect(historyEntry.firstArg).toEqual(12)
+    expect(historyEntry.secondArg).toEqual(60)
+    expect(historyEntry.result).toEqual(0.2)
+  });
+  test('Deberia mostrar un mensaje de error en el display si el divisor es 0', async ({ page }) => {
+    await page.goto('./');
+
+    await page.getByRole('button', { name: '2', exact: true }).click()
+    await page.getByRole('button', { name: '8' }).click()
+    await page.getByRole('button', { name: '/' }).click()
+    await page.getByRole('button', { name: '0' }).click()
+    await page.getByRole('button', { name: '=' }).click()
+    await expect(page.getByTestId('display')).toHaveValue(/¡Error! No se puede dividir por 0/);
+  });
   test('Deberia limpiar el display al precionar el boton C', async ({ page }) => {
     await page.goto('./'); 
     await page.getByRole('button', { name: '5' }).click()
