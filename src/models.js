@@ -66,7 +66,7 @@ export async function getAllHistory() {
 }
 
 export async function deleteAllHistory() { 
-    const historial = await History.destroy({
+    await History.destroy({
         where: {},
         truncate: true
     });
