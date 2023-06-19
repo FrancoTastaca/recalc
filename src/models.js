@@ -5,7 +5,7 @@ console.log(inTest)
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     logging: !inTest,
-    storage: inTest ? ':memory:' : './db.sqlite3'
+    storage: inTest ? './db.sqlite3' : './db.sqlite3'
 })
 
 export const History = sequelize.define('History', {
