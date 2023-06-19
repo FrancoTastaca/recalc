@@ -30,9 +30,30 @@ describe("History", () => {
         expect(histories[0].firstArg).toEqual(2)
         expect(histories[0].secondArg).toEqual(2) //Se agrega el segundo parametro para comprobar que funcione el cambio reciente en la Creacion
         expect(histories[0].result).toEqual(0)
-        expect(histories[0].error).toEqual("") //Se agrega "error" para comprobar que el nuevo atributo se guarda correctamente
+        expect(histories[0].error).toEqual("") 
         expect(histories[0].Operation.name).toEqual("SUB")
     })
+
+    test("Comprueba que el nuevo atributo error se guarda correctamente", async () => {
+      await createHistoryEntry({
+          firstArg: 1,
+          secondArg: 0,
+          result: null,
+          error: "¡ERROR! No se puede dividir por 0 ",
+          operationName: "DIV"
+      })
+
+      const histories = await History.findAll({
+          include: [Operation]
+      })
+
+      expect(histories.length).toEqual(1)
+      expect(histories[0].firstArg).toEqual(1)
+      expect(histories[0].secondArg).toEqual(0) 
+      expect(histories[0].result).toBeNull()
+      expect(histories[0].error).toEqual("¡ERROR! No se puede dividir por 0 ") 
+      expect(histories[0].Operation.name).toEqual("DIV")
+  })
 })
 
 describe('getAllHistory', () => {
@@ -79,6 +100,22 @@ describe('getAllHistory', () => {
 
   describe("deleteAllHistory", () => {
     test("Deberia poder eliminar todo el historial", async () => {
+      await createHistoryEntry({
+        firstArg: 4,
+        secondArg: 8,
+        result: 32,
+        error: "",
+        operationName: 'MUL'
+      });
+
+      await createHistoryEntry({
+        firstArg: 5,
+        secondArg: 2,
+        result: 3,
+        error: "",
+        operationName: 'SUB'
+      });
+
         await deleteAllHistory();
         const historial = await getAllHistory()
         expect(historial).toEqual([])
