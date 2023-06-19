@@ -36,11 +36,12 @@ $buttons.addEventListener('click', async (e) => {
         reset = true;
         return renderDisplay(result);
     }
-
     if (operations.includes(nextAction)) {
         operation = nextAction;
     }
-
+    if (nextAction === "c") {
+        return renderDisplay('');
+    }
     if (reset) {
         reset = false;
         operation = null;

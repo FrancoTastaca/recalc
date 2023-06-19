@@ -211,4 +211,12 @@ test.describe('test', () => {
     await page.getByRole('button', { name: '=' }).click()
     await expect(page.getByTestId('display')).toHaveValue(/¡Error! No se puede dividir por 0/);
   });
+  test('Deberia limpiar el display al precionar el boton C', async ({ page }) => {
+    await page.goto('./'); 
+    await page.getByRole('button', { name: '5' }).click()
+    await page.getByRole('button', { name: '*' }).click() 
+    await page.getByRole('button', { name: '^2' }).click()
+    await page.getByRole('button', { name: 'c'}).click(); 
+    await expect(page.getByTestId('display')).toHaveValue('') 
+  })
 })
