@@ -67,7 +67,17 @@ describe("API Div", () => {
     });
 });
 
-
+describe.skip("API Pow", () => {
+    test("Si el parámetro no es un número, el thenpoint debe devolver un error junto a un status 400", async () => {
+        const app = await api.build();
+        return request(app).get('/api/v1/pow/t')
+            .expect(400)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.error).toEqual('El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido para la potencia cuadrada') 
+            })
+    });
+});
 
 //Ocurre el mismo problema que con POW API... pero cuando estan ambas sin comentar - se traba primero en API POW y pasa este. Pero cuando comente el anterior y quedo este solo, dispara el mismo error de que no encuentra la operacion.
 describe.skip("API Sqrt", () => {
@@ -117,25 +127,25 @@ describe.skip("API Dtb", () => {
    })
 
    test("Debería responder con un estatus 200 ok", async () => {
-    const app = await api.build();
+        const app = await api.build();
 
-    return request(app).get('/api/v1/dtb/8')
-        .expect(200)
-        .expect('Content-Type', "application/json; charset=utf-8")
-        .then((res) => {
-            expect(res.body.result).toEqual(1000);
-        })
+        return request(app).get('/api/v1/dtb/8')
+            .expect(200)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.result).toEqual(1000);
+            })
     })
     
     test("Debería devolver un código de estado 400 al intentar convertir un parámetro que no es numérico", async () => {
-    const app = await api.build();
-  
-    return request(app).get('/api/v1/dtb/t')
-        .expect(400)
-        .expect('Content-Type', "application/json; charset=utf-8")
-        .then((res) => {
-            expect(res.body.error).toEqual('El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido.')
-        })
+        const app = await api.build();
+    
+        return request(app).get('/api/v1/dtb/t')
+            .expect(400)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.error).toEqual('El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido.')
+            })
    })
 })
 
@@ -159,4 +169,6 @@ describe.skip("API historyById", () => {
                 expect(res.body.result).toBeDefined(); 
             })
     });
+
 });
+
