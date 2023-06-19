@@ -56,8 +56,8 @@ router.get("/div/:a/:b", validacionParametrosNum, async function (req, res) {
     const { a, b } = req.validParams;
     if ( b === 0) {
         const errorMsg = '¡ERROR! No se puede dividir por 0 '
-        res.status(400).send({ error: errorMsg})
         await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", error: errorMsg})
+        res.status(400).send({ error: errorMsg})
     }else{
         const result = core.div(a, b);
         await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result,})
@@ -69,9 +69,8 @@ router.get("/pow/:a", async function (req, res) {
     const a = Number(req.params.a);
     if (isNaN(a)) {
         const errorMsg ='El parámetro ingresado no es un número. Por favor, asegúrese de que sea un parámetro válido para la potencia cuadrada'
-        res.status(400).send({ error: errorMsg})
         await createHistoryEntry({ firstArg: null, operationName: "POW" , error:errorMsg })
-
+        res.status(400).send({ error: errorMsg})
     } else {
         const result = core.pow(a);
         await createHistoryEntry({ firstArg: a, operationName: "POW", result});
