@@ -64,7 +64,7 @@ async function calculateAdd(firstArg, secondArg) {
 async function calculatePow(firstArg) {
 
     if(firstArg > 100000){
-        return "Error: n° muy grande, pruebe con otro"
+        return "Error:n° muy grande, pruebe con otro"
     }
     const resp = await fetch(`/api/v1/pow/${firstArg}`)
     const { result } = await resp.json();

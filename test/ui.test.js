@@ -52,10 +52,10 @@ test.describe('test', () => {
   test('Deberia poder realizar una multiplicacion', async ({ page }) => {
     await page.goto('./');
 
-    await page.getByRole('button', { name: '2' }).click()
+    await page.getByRole('button', { name: '2', exact: true }).click()
     await page.getByRole('button', { name: '5' }).click()
     await page.getByRole('button', { name: '*' }).click()
-    await page.getByRole('button', { name: '2' }).click()
+    await page.getByRole('button', { name: '2', exact: true }).click()
 
     const [response] = await Promise.all([
       page.waitForResponse((r) => r.url().includes('/api/v1/mul/')),
@@ -122,4 +122,50 @@ test.describe('test', () => {
     expect(historyEntry.result).toEqual(13)
   });
 
+  test('Deberia poder calcular la potencia cuadrada de un número', async ({page}) => {
+    await page.goto('./');
+
+
+    await page.getByRole('button', { name: '1' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+    await page.getByRole('button', { name: '^2' }).click();
+
+    const [response] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes('/api/v1/pow/')),
+      page.getByRole('button', { name: '=' }).click()
+    ]);
+
+    const { result } = await response.json();
+    expect(result).toBe(100);
+
+    await expect(page.getByTestId('display')).toHaveValue(/100/)
+
+    const operation = await Operation.findOne({
+      where: {
+        name: "POW"
+      }
+    });
+
+    const historyEntry = await History.findOne({
+      where: { OperationId: operation.id }
+    })
+
+    expect(historyEntry.firstArg).toEqual(10)
+    expect(historyEntry.result).toEqual(100)
+  });
+  test('Deberia verificar que la calculadora tire error si el resultado es mayor que 100.000', async ({page}) => {
+    await page.goto('./');
+
+
+    await page.getByRole('button', { name: '1' }).click();
+    await page.getByRole('button', { name: '2', exact: true }).click()
+    await page.getByRole('button', { name: '3' }).click();
+    await page.getByRole('button', { name: '4' }).click();
+    await page.getByRole('button', { name: '5' }).click();
+    await page.getByRole('button', { name: '6' }).click();
+    await page.getByRole('button', { name: '7' }).click();
+    await page.getByRole('button', { name: '^2' }).click();
+    await page.getByRole('button', { name: '=' }).click();
+    await expect(page.getByTestId('display')).toHaveValue(/Error:n° muy grande, pruebe con otro/)
+  });
 })
