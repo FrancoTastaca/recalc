@@ -232,5 +232,44 @@ test.describe('test', () => {
     });
     await expect(page.getByTestId('display')).toHaveValue('7-');
   });
-  
+  test('Deberia poder calcular la raíz cuadrada de un número positivo', async ({page}) => {
+    await page.goto('./');
+
+
+    await page.getByRole('button', { name: '1' }).click();
+    await page.getByRole('button', { name: '6' }).click();
+    await page.getByRole('button', { name: '√' }).click();
+
+    const [response] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes('/api/v1/sqrt/')),
+      page.getByRole('button', { name: '=' }).click()
+    ]);
+
+    const { result } = await response.json();
+    expect(result).toBe(4);
+
+    await expect(page.getByTestId('display')).toHaveValue(/4/)
+
+    const operation = await Operation.findOne({
+      where: {
+        name: "SQRT"
+      }
+    });
+
+    const historyEntry = await History.findOne({
+      where: { OperationId: operation.id }
+    })
+
+    expect(historyEntry.firstArg).toEqual(16)
+    expect(historyEntry.result).toEqual(4)
+  });
+  test('Deberia mostrar un mensaje de error en el display si el número es negativo para sqrt', async ({ page }) => {
+    await page.goto('./');
+
+    await page.getByRole('button', { name: '-', exact: true }).click()
+    await page.getByRole('button', { name: '8' }).click()
+    await page.getByRole('button', { name: '√' }).click()
+    await page.getByRole('button', { name: '=' }).click()
+    await expect(page.getByTestId('display')).toHaveValue(/¡Error! El n° debe ser positivo/);
+  });
 })
