@@ -9,7 +9,9 @@ let reset = false;
 
 $buttons.addEventListener('click', async (e) => {
     const nextAction = e.target.name
-
+    if (!nextAction) {
+        return // Si el elemento clicado no tiene el atributo 'name', no realiza ninguna accion
+    }
     if (nextAction === "=") {
         const [firstArg, secondArg] = currentDisplay.split(operation)
 

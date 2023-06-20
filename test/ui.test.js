@@ -219,4 +219,18 @@ test.describe('test', () => {
     await page.getByRole('button', { name: 'c'}).click(); 
     await expect(page.getByTestId('display')).toHaveValue('') 
   })
+  test('No deberia hacer nada al hacer clic en un lugar vacio', async ({ page }) => {
+    await page.goto('./');
+  
+    await page.getByRole('button', { name: '7' }).click();
+    await page.getByRole('button', { name: '-' }).click();
+    await page.evaluate(() => {
+      const emptyArea = document.querySelector('.empty-area'); // Reemplaza '.empty-area' con el selector adecuado para el área vacía
+      if (emptyArea) {
+        emptyArea.click();
+      }
+    });
+    await expect(page.getByTestId('display')).toHaveValue('7-');
+  });
+  
 })
