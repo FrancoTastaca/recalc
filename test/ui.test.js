@@ -259,7 +259,7 @@ test.describe('test', () => {
     const historyEntry = await History.findOne({
       where: { OperationId: operation.id }
     })
-
+    
     expect(historyEntry.firstArg).toEqual(16)
     expect(historyEntry.result).toEqual(4)
   });
@@ -272,4 +272,33 @@ test.describe('test', () => {
     await page.getByRole('button', { name: '=' }).click()
     await expect(page.getByTestId('display')).toHaveValue(/¡Error! El n° debe ser positivo/);
   });
+  test('Deberia poder convertir decimal a binario', async ({page}) => {
+    await page.goto('./');
+    
+    await page.getByRole('button', { name: '5' }).click();
+    await page.getByRole('button', { name: 'dtb' }).click();
+
+    const [response] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes('/api/v1/dtb/')),
+      page.getByRole('button', { name: '=' }).click()
+    ]);
+
+    const { result } = await response.json();
+    expect(result).toBe(101);
+
+    await expect(page.getByTestId('display')).toHaveValue(/101/)
+
+    const operation = await Operation.findOne({
+      where: {
+        name: "DTB"
+      }
+    });
+
+    const historyEntry = await History.findOne({
+      where: { OperationId: operation.id }
+    })
+
+    expect(historyEntry.firstArg).toEqual(5)
+    expect(historyEntry.result).toEqual(101)
+  });  
 })
