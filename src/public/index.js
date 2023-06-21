@@ -1,7 +1,7 @@
 const $display = document.querySelector('.display')
 const $buttons = document.querySelector('.buttons')
 
-const operations = ['-','*','+','^2','/','dtb'];
+const operations = ['-','*','+','^2','/','√','dtb'];
 
 let currentDisplay = "";
 let operation = null;
@@ -32,9 +32,9 @@ $buttons.addEventListener('click', async (e) => {
         else if (operation === '/') {
             result = await calculateDiv(firstArg, secondArg);
         }
-
-
-
+        else if (operation === '√'){
+            result = await calculateSqrt(firstArg)
+        }
         else if (operation === 'dtb'){
             result = await calculateDtb(firstArg)
         }
@@ -89,20 +89,20 @@ async function calculateDiv(firstArg, secondArg) {
     const { result } = await resp.json()
     return result    
 }
-
-
-
-
-
-
-
-
-
+async function calculateSqrt(firstArg) {
+    if(firstArg < 0){
+        return "¡Error! El n° debe ser positivo"
+    }
+    const resp = await fetch(`/api/v1/sqrt/${firstArg}`)
+    const { result } = await resp.json();
+    return result;
+}
 async function calculateDtb(firstArg) {
     const resp = await fetch(`/api/v1/dtb/${firstArg}`)
     const { result } = await resp.json()
-    return result  
-}
+    return result
+} 
+
 function renderDisplay(chars) {
     currentDisplay = chars;
     $display.value = chars;
